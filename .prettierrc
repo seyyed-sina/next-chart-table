@@ -1,0 +1,9 @@
+{
+	"trailingComma": "all",
+	"tabWidth": 2,
+	"semi": true,
+	"jsxBracketSameLine": true,
+	"useTabs": false,
+	"singleQuote": true,
+	"tailwindConfig": "./tailwind.config.ts"
+}

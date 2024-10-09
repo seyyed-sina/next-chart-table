@@ -1,3 +1,91 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:sonarjs/recommended-legacy",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:@next/next/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "@next/eslint-plugin-next",
+    "react-hooks",
+    "sonarjs",
+    "import"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "js": true,
+      "globalReturn": false
+    },
+    "requireConfigFile": false,
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-useless-escape": "warn",
+    "prefer-const": "error",
+    "import/no-unresolved": "error",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "react/require-default-props": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-empty-interface": "warn",
+    "@typescript-eslint/no-empty-object-type": "warn",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "no-octal-escape": 0,
+    "sonarjs/no-duplicate-string": ["warn", { "threshold": 5 }],
+    "sonarjs/unused-import": "warn",
+    "sonarjs/no-commented-code": "off",
+    "sonarjs/jsx-no-useless-fragment": "warn",
+    "sonarjs/no-array-index-key": "warn",
+    "sonarjs/pseudo-random": "warn",
+    "sonarjs/prefer-nullish-coalescing": "warn",
+    "sonarjs/mouse-events-a11y": "off",
+    "sonarjs/cognitive-complexity": ["warn", 20],
+    "import/order": [
+      "warn",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
 }
