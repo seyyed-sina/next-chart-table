@@ -64,7 +64,7 @@
     "sonarjs/no-commented-code": "off",
     "sonarjs/jsx-no-useless-fragment": "warn",
     "sonarjs/no-array-index-key": "warn",
-    "sonarjs/pseudo-random": "warn",
+    "sonarjs/pseudo-random": "off",
     "sonarjs/prefer-nullish-coalescing": "warn",
     "sonarjs/mouse-events-a11y": "off",
     "sonarjs/cognitive-complexity": ["warn", 20],
