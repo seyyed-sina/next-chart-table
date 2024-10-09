@@ -22,8 +22,9 @@ export const TableBody = ({ table }: TableBodyProps) => {
             <td
               key={cell.id}
               className={clx(
-                'px-3 py-4 border-b border-solid border-gray-500 text-sm md:text-base',
+                'px-3 py-4 border-b border-solid border-gray-500',
                 cell.column.id !== 'name' && 'text-center',
+                cell.column.id !== 'select' && 'text-sm md:text-base',
               )}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>

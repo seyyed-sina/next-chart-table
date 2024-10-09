@@ -33,9 +33,10 @@ export const TableHead = ({ table }: TableHeadProps) => {
               key={header.id}
               colSpan={header.colSpan}
               className={clx(
-                'p-3 text-left border-solid border-b-2 border-gray-400 text-sm md:text-base',
+                'p-3 text-left border-solid border-b-2 border-gray-400',
                 header.column.id === 'name' && 'min-w-96',
                 header.column.id === 'select' && 'w-10',
+                header.column.id !== 'select' && 'text-sm md:text-base',
                 header.column.id !== 'select' &&
                   header.column.id !== 'name' &&
                   'min-w-24',

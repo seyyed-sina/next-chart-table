@@ -11,7 +11,7 @@ interface TableCheckboxProps {
 export const TableCheckbox = memo(
   ({ id, checked, onChange }: TableCheckboxProps) => {
     return (
-      <div className="relative">
+      <div className="relative size-4">
         <input
           id={id}
           className={clx(
