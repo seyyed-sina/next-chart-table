@@ -1,7 +1,6 @@
 import { ColumnDef, SortingFn } from '@tanstack/react-table';
 
-import { clx } from '@/utils/helper';
-
+import { TableCheckbox } from './components/TableCheckbox';
 import { Dessert } from './table.types';
 
 const dessertNames: string[] = [
@@ -87,7 +86,6 @@ const dessertNames: string[] = [
   'Butter Cookie',
   'Buttermilk Pie',
   'Caramel Custard',
-  'Carrot Cake',
   'Cherry Pie',
   'Chocolate Brownie',
   'Chocolate Chip Cookie',
@@ -113,7 +111,6 @@ const dessertNames: string[] = [
   'Green Tea Cake',
   'Honey Cake',
   'Hot Chocolate Fudge',
-  'Lemon Tart',
   'Lime Tart',
   'Lobster Bisque',
   'Macaroon',
@@ -125,7 +122,6 @@ const dessertNames: string[] = [
   'Oreo Cookie Dough Ice Cream',
   'Peach Cobbler',
   'Peanut Butter Pie',
-  'Pecan Pie',
   'Pistachio Tart',
   'Pineapple Upside Down Cake',
   'Pistachio Cake',
@@ -148,22 +144,31 @@ const dessertNames: string[] = [
 
 const usedNames = new Set<string>();
 
-function getRandomDessertName(usedNames: Set<string>): string {
+const getRandomDessertName = (usedNames: Set<string>): string => {
   let name: string;
   do {
     name = dessertNames[Math.floor(Math.random() * dessertNames.length)];
   } while (usedNames.has(name));
   usedNames.add(name);
   return name;
-}
+};
+
+const getRandomNumber = (
+  min: number,
+  max: number,
+  precision: number,
+): number => {
+  const randomValue = Math.random() * (max - min) + min;
+  return parseFloat(randomValue.toFixed(precision));
+};
 
 export const tableData: Dessert[] = Array.from({ length: 100 }, () => {
   return {
     name: getRandomDessertName(usedNames),
-    calories: Math.floor(Math.random() * 400) + 100,
-    fat: parseFloat((Math.random() * 30).toFixed(1)),
-    carbs: Math.floor(Math.random() * 100),
-    protein: parseFloat((Math.random() * 50).toFixed(1)),
+    calories: getRandomNumber(100, 400, 0),
+    fat: getRandomNumber(0, 30, 1),
+    carbs: getRandomNumber(0, 100, 0),
+    protein: getRandomNumber(0, 50, 1),
     isGlutenFree: Math.random() < 0.5,
   };
 });
@@ -171,93 +176,25 @@ export const tableData: Dessert[] = Array.from({ length: 100 }, () => {
 const sortStatusFn: SortingFn<Dessert> = (rowA, rowB) => {
   const statusA = rowA.original.name.toString();
   const statusB = rowB.original.name.toString();
-  const statusOrder = ['single', 'complicated', 'relationship'];
-  return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+  return statusA.localeCompare(statusB);
 };
 
 export const tableColumns: ColumnDef<Dessert>[] = [
   {
     id: 'select',
     header: ({ table }) => (
-      <div className="relative">
-        <input
-          id="select-all"
-          className={clx(
-            'appearance-none size-4 rounded bg-white cursor-pointer',
-            table.getIsAllRowsSelected() && 'bg-primary-500',
-          )}
-          type="checkbox"
-          {...{
-            checked: table.getIsAllRowsSelected(),
-            onChange: table.getToggleAllRowsSelectedHandler(),
-          }}
-        />
-        <label
-          htmlFor="select-all"
-          className="absolute cursor-pointer inset-0 size-4 flex items-center justify-center">
-          <span className="hidden">checkbox label</span>
-          <svg
-            aria-hidden="true"
-            role="presentation"
-            viewBox="0 0 17 18"
-            className={clx(
-              'h-3 w-4 transition-opacity motion-reduce:transition-none',
-              table.getIsAllRowsSelected() ? 'opacity-100' : 'opacity-0',
-            )}>
-            <polyline
-              fill="none"
-              points="1 9 7 14 15 4"
-              stroke="currentColor"
-              strokeDasharray="22"
-              strokeDashoffset={table.getIsAllRowsSelected() ? '44' : '66'}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="transition-[stroke-dashoffset] delay-100 duration-200 ease-linear"></polyline>
-          </svg>
-        </label>
-      </div>
+      <TableCheckbox
+        id="select-all"
+        checked={table.getIsAllRowsSelected()}
+        onChange={table.getToggleAllRowsSelectedHandler()}
+      />
     ),
     cell: ({ row }) => (
-      <div className="relative">
-        <input
-          id={row.id}
-          className={clx(
-            'appearance-none size-4 rounded bg-white cursor-pointer',
-            row.getIsSelected() && 'bg-primary-500',
-          )}
-          type="checkbox"
-          {...{
-            checked: row.getIsSelected(),
-            disabled: !row.getCanSelect(),
-            onChange: row.getToggleSelectedHandler(),
-          }}
-        />
-        <label
-          htmlFor={row.id}
-          className="absolute cursor-pointer inset-0 size-4 flex items-center justify-center">
-          <span className="hidden">checkbox label</span>
-          <svg
-            aria-hidden="true"
-            role="presentation"
-            viewBox="0 0 17 18"
-            className={clx(
-              'h-3 w-4 transition-opacity motion-reduce:transition-none',
-              row.getIsSelected() ? 'opacity-100' : 'opacity-0',
-            )}>
-            <polyline
-              fill="none"
-              points="1 9 7 14 15 4"
-              stroke="currentColor"
-              strokeDasharray="22"
-              strokeDashoffset={row.getIsSelected() ? '44' : '66'}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="transition-[stroke-dashoffset] delay-100 duration-200 ease-linear"></polyline>
-          </svg>
-        </label>
-      </div>
+      <TableCheckbox
+        id={row.id}
+        checked={row.getIsSelected()}
+        onChange={row.getToggleSelectedHandler()}
+      />
     ),
   },
   {
