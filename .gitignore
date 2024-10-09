@@ -12,9 +12,10 @@
 # next.js
 /.next/
 /out/
-
+/dist/
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -26,11 +27,21 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
 .vercel
 
+# orig conflict files
+*.orig
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sentry Config File
+.env.sentry-build-plugin
+
+# Conflict file
+*.orig
