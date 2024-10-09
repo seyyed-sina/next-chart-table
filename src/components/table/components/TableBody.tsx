@@ -21,7 +21,10 @@ export const TableBody = ({ table }: TableBodyProps) => {
           {row.getVisibleCells().map((cell) => (
             <td
               key={cell.id}
-              className="px-3 py-4 border-b border-solid border-gray-500 text-sm md:text-base">
+              className={clx(
+                'px-3 py-4 border-b border-solid border-gray-500 text-sm md:text-base',
+                cell.column.id !== 'name' && 'text-center',
+              )}>
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>
           ))}
