@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-
+import { Analytics } from '@vercel/analytics/react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { inter } from '@/constants/font';
 import './globals.css';
@@ -17,6 +17,7 @@ export default function RootLayout({
     <html lang="en" className={inter.className}>
       <body className="antialiased">
         <MainLayout>{children}</MainLayout>
+        
       </body>
     </html>
   );

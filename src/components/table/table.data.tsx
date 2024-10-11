@@ -174,9 +174,9 @@ export const tableData: Dessert[] = Array.from({ length: 100 }, () => {
 });
 
 const sortStatusFn: SortingFn<Dessert> = (rowA, rowB) => {
-  const statusA = rowA.original.name.toString();
-  const statusB = rowB.original.name.toString();
-  return statusA.localeCompare(statusB);
+  const nameA = rowA.original.name.toString();
+  const nameB = rowB.original.name.toString();
+  return nameA.localeCompare(nameB);
 };
 
 export const tableColumns: ColumnDef<Dessert>[] = [
